@@ -12,8 +12,8 @@ const Signup = () => {
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post('/api/signup', user); // Replace with your API endpoint
-      console.log(response.data);
+      // const response = await axios.post('/api/signup', user); // Replace with your API endpoint
+      // console.log(response.data);
       // Handle successful signup, e.g., show success message, redirect to login, etc.
     } catch (error) {
       console.error(error);
@@ -55,7 +55,7 @@ const Signup = () => {
           Signup
         </button>
         <p className='mt-4 text-center'>
-          Already have an account?{' '}
+          Already have an account?
           <Link href='/login' className='text-blue-500 hover:underline'>
             Log in
           </Link>

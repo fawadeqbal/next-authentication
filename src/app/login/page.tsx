@@ -11,8 +11,8 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('/api/login', credentials); // Replace with your API endpoint
-      console.log(response.data);
+      // const response = await axios.post('/api/login', credentials); // Replace with your API endpoint
+      // console.log(response.data);
       // Handle successful login, e.g., store authentication token, redirect to dashboard, etc.
     } catch (error) {
       console.error(error);
@@ -47,7 +47,7 @@ const Login = () => {
           Login
         </button>
         <p className='mt-4 text-center'>
-          Don't have an account?{' '}
+          Don't have an account?
           <Link href='/signup' className='text-blue-500 hover:underline'>Sign up
           </Link>
         </p>
