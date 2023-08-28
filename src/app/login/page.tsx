@@ -48,8 +48,10 @@ const Login = () => {
         </button>
         <p className='mt-4 text-center'>
           Don't have an account?
-          <Link href='/signup' className='text-blue-500 hover:underline'>Sign up
-          </Link>
+          <Link href='/signup'>
+  <a className='text-blue-500 hover:underline'>Sign up</a>
+</Link>
+
         </p>
       </div>
     </div>
