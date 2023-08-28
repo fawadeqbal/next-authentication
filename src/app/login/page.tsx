@@ -2,18 +2,21 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
+  const router = useRouter()
   const [credentials, setCredentials] = useState({
-    email: '',
+    username: '',
     password: ''
   });
 
   const handleLogin = async () => {
     try {
-      // const response = await axios.post('/api/login', credentials); // Replace with your API endpoint
-      // console.log(response.data);
+      const response = await axios.post('/api/users/login', credentials); // Replace with your API endpoint
+      console.log(response.data);
       // Handle successful login, e.g., store authentication token, redirect to dashboard, etc.
+      router.push('/')
     } catch (error) {
       console.error(error);
       // Handle error, show error message, etc.
@@ -27,11 +30,11 @@ const Login = () => {
 
       <div className='w-1/3'>
         <input
-          type='email'
-          placeholder='Email'
+          type='text'
+          placeholder='Username'
           className='w-full p-2 mb-2 border rounded'
-          value={credentials.email}
-          onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+          value={credentials.username}
+          onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
         />
         <input
           type='password'

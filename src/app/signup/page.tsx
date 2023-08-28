@@ -1,29 +1,46 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link'; // Import Link component
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 const Signup = () => {
+  const router = useRouter()
   const [user, setUser] = useState({
     email: '',
     password: '',
     username: ''
   });
+  const [buttonDisbaled, setButtonDisbaled] = useState(true)
+  const [loading,setLoading] = useState(false)
+  useEffect(() => {
 
+    if (user.email.length > 0 && user.password.length > 0 && user.username.length > 0) {
+      setButtonDisbaled(false)
+    } else {
+      setButtonDisbaled(true)
+    }
+  }, [user])
   const handleSignup = async () => {
     try {
-      // const response = await axios.post('/api/signup', user); // Replace with your API endpoint
-      // console.log(response.data);
+      setLoading(true)
+      const response = await axios.post('/api/users/signup', user); // Replace with your API endpoint
+      setLoading(false)
+      console.log(response.data);
       // Handle successful signup, e.g., show success message, redirect to login, etc.
-    } catch (error) {
-      console.error(error);
+      router.push('/login')
+    } catch (error:any) {
+     toast.error(error.message)
       // Handle error, show error message, etc.
+    } finally{
+      setLoading(false)
     }
   };
 
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2'>
-      <h1 className='text-2xl font-bold mb-4'>Signup</h1>
+      <h1 className='text-2xl font-bold mb-4'>{loading?"Processing":"Signup"}</h1>
       <hr className='w-1/2 my-4' />
 
       <div className='w-1/3'>
@@ -52,7 +69,7 @@ const Signup = () => {
           className='w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600'
           onClick={handleSignup}
         >
-          Signup
+          {buttonDisbaled ? "No Signup" : "Signup"}
         </button>
         <p className='mt-4 text-center'>
           Already have an account?
