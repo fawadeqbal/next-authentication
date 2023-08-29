@@ -1,11 +1,10 @@
-"use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
 const Login = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [credentials, setCredentials] = useState({
     username: '',
     password: ''
@@ -13,13 +12,11 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('/api/users/login', credentials); // Replace with your API endpoint
+      const response = await axios.post('/api/users/login', credentials);
       console.log(response.data);
-      // Handle successful login, e.g., store authentication token, redirect to dashboard, etc.
-      router.push('/profile')
+      router.push('/profile');
     } catch (error) {
       console.error(error);
-      // Handle error, show error message, etc.
     }
   };
 
@@ -50,8 +47,9 @@ const Login = () => {
           Login
         </button>
         <p className='mt-4 text-center'>
-          Don't have an account?
-          <Link href='/signup' className='text-blue-500 hover:underline'>Sign up
+          Don&apos;t have an account?
+          <Link href='/signup' className='text-blue-500 hover:underline'>
+            Sign up
           </Link>
         </p>
       </div>
