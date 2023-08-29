@@ -9,9 +9,10 @@ export async function GET(request:NextRequest) {
     try {
         const userID=await getDataFromToken(request)
         const user=await User.findById(userID)
+        console.log(user)
         return NextResponse.json({
             message:"User found.",
-            data: user
+            user: user
         })
     } catch (error:any) {
         return NextResponse.json({error: error.message},{status:400})
