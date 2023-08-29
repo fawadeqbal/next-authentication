@@ -1,32 +1,54 @@
-"use client"
-import React, { useState } from 'react';
-import Link from 'next/link';
+"use client";
+import axios from "axios";
+import Link from "next/link";
+import React, { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-const Profile = () => {
-    const [user,setUser]=useState({
-        email:'',
-        username:''
-    })
-  return (
-    <div className='flex flex-col items-center justify-center min-h-screen py-2'>
-      <h1 className='text-2xl font-bold mb-4'>Profile</h1>
-      <hr className='w-1/2 my-4' />
 
-      <div className='w-1/3'>
-        <p className='mb-2'>
-          <strong>Email:</strong> {user.email}
-        </p>
-        <p className='mb-2'>
-          <strong>Username:</strong> {user.username}
-        </p>
-        {/* Additional user information can be displayed here */}
-        
-        <Link href='/'
-         className='text-blue-500 hover:underline'>Back to Home
-        </Link>
-      </div>
-    </div>
-  );
-};
+export default function ProfilePage() {
+    const router = useRouter()
+    const [data, setData] = useState("nothing")
+    const logout = async () => {
+        try {
+            await axios.get('/api/users/logout')
+            toast.success('Logout successful')
+            router.push('/login')
+        } catch (error: any) {
+            console.log(error.message);
+            toast.error(error.message)
+        }
+    }
 
-export default Profile;
+    const getUserDetails = async () => {
+        const res = await axios.get('/api/users/me')
+        console.log(res.data);
+        setData(res.data.data._id)
+    }
+
+    return (
+        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+            <h1>Profile</h1>
+            <hr />
+            <p>Profile page</p>
+            <h2 className="p-1 rounded bg-green-500">{data === 'nothing' ? "Nothing" : <Link href={`/profile/${data}`}>{data}
+            </Link>}</h2>
+            <hr />
+            <button
+                onClick={logout}
+                className="bg-blue-500 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+                Logout
+            </button>
+
+            <button
+                onClick={getUserDetails}
+                className="bg-green-800 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+                GetUser Details
+            </button>
+
+
+        </div>
+    )
+}

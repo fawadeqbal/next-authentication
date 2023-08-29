@@ -16,7 +16,7 @@ const Login = () => {
       const response = await axios.post('/api/users/login', credentials); // Replace with your API endpoint
       console.log(response.data);
       // Handle successful login, e.g., store authentication token, redirect to dashboard, etc.
-      router.push('/')
+      router.push('/profile')
     } catch (error) {
       console.error(error);
       // Handle error, show error message, etc.
